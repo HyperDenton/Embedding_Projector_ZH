@@ -11393,11 +11393,11 @@ paper-dropdown-menu paper-item {
 }
 
 </style>
-<div class="title">DATA</div>
+<div class="title">数据</div>
 <div class="container">
   
   <template is="dom-if" if="[[_hasChoices(runNames)]]">
-    <paper-dropdown-menu no-animations label="[[_getNumRunsLabel(runNames)]] found">
+    <paper-dropdown-menu no-animations label="已找到[[_getNumRunsLabel(runNames)]]">
       <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedRun}}" slot="dropdown-content">
         <template is="dom-repeat" items="[[runNames]]">
           <paper-item value="[[item]]" label="[[item]]">
@@ -11410,7 +11410,7 @@ paper-dropdown-menu paper-item {
 
   <template is="dom-if" if="[[tensorNames]]">
     
-    <paper-dropdown-menu no-animations label="[[_getNumTensorsLabel(tensorNames)]] found">
+    <paper-dropdown-menu no-animations label="已找到[[_getNumTensorsLabel(tensorNames)]]">
       <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedTensor}}" slot="dropdown-content">
         <template is="dom-repeat" items="[[tensorNames]]">
           <paper-item value="[[item.name]]" label="[[item.name]]">
@@ -11427,7 +11427,7 @@ paper-dropdown-menu paper-item {
   <div hidden$="[[!_hasChoices(colorOptions)]]">
     <div class="colorlabel-container">
       
-      <paper-dropdown-menu id="labelby" no-animations label="Label by">
+      <paper-dropdown-menu id="labelby" no-animations label="标签">
         <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedLabelOption}}" slot="dropdown-content">
           <template is="dom-repeat" items="[[labelOptions]]">
             <paper-item value="[[item]]" label="[[item]]">
@@ -11437,7 +11437,7 @@ paper-dropdown-menu paper-item {
         </paper-listbox>
       </paper-dropdown-menu>
       
-      <paper-dropdown-menu id="colorby" no-animations label="Color by">
+      <paper-dropdown-menu id="colorby" no-animations label="颜色">
         <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedColorOptionName}}" slot="dropdown-content">
           <template is="dom-repeat" items="[[colorOptions]]">
             <paper-item class$="[[getSeparatorClass(item.isSeparator)]]" value="[[item.name]]" label="[[item.name]]" disabled="[[item.isSeparator]]">
@@ -11449,9 +11449,11 @@ paper-dropdown-menu paper-item {
       </paper-dropdown-menu>
     </div>
     <div hidden$="[[!showForceCategoricalColorsCheckbox]]">
-      <paper-checkbox id="force-categorical-checkbox">Use categorical coloring</paper-checkbox>
+      <paper-checkbox id="force-categorical-checkbox">使用颜色分类</paper-checkbox>
       <paper-icon-button icon="help" class="help-icon"></paper-icon-button>
       <paper-tooltip position="bottom" animation-delay="0" fit-to-visible-bounds>
+        对于含有多个独特值的元数据域我们默认使用梯度进行颜色映射。
+        你可以通过这个选项来强制对这个元数据域进行颜色分类。
         For metadata fields that have many unique values we use a gradient color map
         by default. This checkbox allows you to force categorical coloring by a given
         metadata field.
@@ -11478,7 +11480,7 @@ paper-dropdown-menu paper-item {
     </div>
     
     <div class="metadata-editor">
-      <paper-dropdown-menu no-animations label="Edit by">
+      <paper-dropdown-menu no-animations label="编辑">
         <paper-listbox attr-for-selected="value" class="dropdown-content" slot="dropdown-content" on-selected-item-changed="metadataEditorColumnChange" selected="{{metadataEditorColumn}}">
           <template is="dom-repeat" items="[[metadataFields]]">
             <paper-item value="[[item]]" label="[[item]]">
@@ -11494,43 +11496,43 @@ paper-dropdown-menu paper-item {
   <div id="demo-data-buttons-container">
     <span class="button-container">
       <paper-tooltip position="bottom" animation-delay="0" fit-to-visible-bounds>
-        Load data from your computer
+        从本地加载数据
       </paper-tooltip>
-      <paper-button id="upload" class="ink-button" onclick="dataDialog.open()">Load</paper-button>
+      <paper-button id="upload" class="ink-button" onclick="dataDialog.open()">加载</paper-button>
     </span>
     <span id="publish-container" class="button-container">
       <paper-tooltip position="bottom" animation-delay="0" fit-to-visible-bounds>
-        Publish your embedding visualization and data
+        公开你的数据以及可视化结果
       </paper-tooltip>
-      <paper-button id="host-embedding" class="ink-button" onclick="projectorConfigDialog.open()">Publish</paper-button>
+      <paper-button id="host-embedding" class="ink-button" onclick="projectorConfigDialog.open()">公开</paper-button>
     </span>
     <span class="button-container">
       <paper-tooltip position="bottom" animation-delay="0" fit-to-visible-bounds>
-        Download the metadata with applied modifications
+        下载应用修改后的元数据
       </paper-tooltip>
-      <paper-button class="ink-button" on-click="downloadMetadataClicked">Download</paper-button>
+      <paper-button class="ink-button" on-click="downloadMetadataClicked">下载</paper-button>
       <a href="#" id="downloadMetadataLink" hidden></a>
     </span>
     <span id="label-button" class="button-container">
-      <paper-tooltip position="bottom" animation-delay="0" fit-to-visible-bounds>
-        Label selected metadata
+      <paper-tooltp position="bottom" animation-delay="0" fit-to-visible-bounds>
+        
       </paper-tooltip>
       <paper-button class="ink-button" on-click="metadataEditorButtonClicked" disabled="[[metadataEditorButtonDisabled]]">Label</paper-button>
     </span>
   </div>
   <div>
     <paper-dialog id="dataDialog" with-backdrop>
-      <h2>Load data from your computer</h2>
+      <h2>从本地加载数据</h2>
       <paper-dialog-scrollable class="scrollable-container">
         <div class="data-step" id="upload-tensors-step-container">
           <div class="upload-step">
             <div>
-                <b><span class="step-label">Step 1:</span> Load a TSV file of vectors.</b>
+                <b><span class="step-label">第一步：</span> 加载数据tsv文件 </b>
             </div>
           </div>
           <div class="data-step-contents">
             <div class="data-step-contents-contents">
-              Example of 3 vectors with dimension 4:
+              例如3个4维张量的数据格式为:
               <div class="code">
                 0.1<span class="delimiter">\t</span>0.2<span class="delimiter">\t</span>0.5<span class="delimiter">\t</span>0.9<br>
                 0.2<span class="delimiter">\t</span>0.1<span class="delimiter">\t</span>5.0<span class="delimiter">\t</span>0.2<br>
@@ -11538,7 +11540,7 @@ paper-dropdown-menu paper-item {
               </div>
             </div>
             <div class="data-step-contents-upload">
-              <paper-button id="upload-tensors" title="Choose a TSV tensor file">Choose file</paper-button>
+              <paper-button id="upload-tensors" title="Choose a TSV tensor file">选择文件</paper-button>
               <input type="file" id="file" name="file">
             </div>
           </div>
@@ -11546,13 +11548,13 @@ paper-dropdown-menu paper-item {
         <div class="data-step">
           <div class="upload-step">
             <div>
-                <span class="step-label" id="upload-metadata-label"><b>Step 2</b> (optional):</span> <b>Load a TSV file of metadata.</b>
+                <span class="step-label" id="upload-metadata-label"><b>第二步</b> (可选):</span> <b>加载元数据的tsv文件</b>
             </div>
           </div>
           <div class="data-step-contents">
             <div class="data-step-contents-contents">
-              Example of 3 data points and 2 columns.<br>
-              <i>Note: If there is more than one column, the first row will be parsed as column labels.</i>
+              例如：3个两列的数据<br>
+              <i>注意：如果有多列数据，则以第一列为列的标签</i>
               <div class="code">
                 <b>Pokémon<span class="delimiter">\t</span>Species</b><br>
                 Wartortle<span class="delimiter">\t</span>Turtle<br>
@@ -11561,78 +11563,77 @@ paper-dropdown-menu paper-item {
               </div>
             </div>
             <div class="data-step-contents-upload">
-              <paper-button id="upload-metadata" title="Choose a TSV metadata file" class="ink-button">Choose file</paper-button>
+              <paper-button id="upload-metadata" title="Choose a TSV metadata file" class="ink-button">选择文件</paper-button>
               <input type="file" id="file-metadata" name="file-metadata">
             </div>
           </div>
         </div>
       </paper-dialog-scrollable>
-      <div class="dismiss-dialog-note">Click outside to dismiss.</div>
+      <div class="dismiss-dialog-note">点击框外取消</div>
     </paper-dialog>
     <paper-dialog id="projectorConfigDialog" with-backdrop>
-      <h2>Publish your embedding visualization and data</h2>
+      <h2>公开你的数据以及可视化结果</h2>
       <paper-dialog-scrollable class="scrollable-container">
         <div>
           <p>
-            If you'd like to share your visualization with the world, follow these simple steps.
-            See <a target="_blank" href="https://www.tensorflow.org/get_started/embedding_viz">this tutorial</a> for more.
+            若你想向世界分享你的可视化结果，只需几步就可完成
+            详见 <a target="_blank" href="https://www.tensorflow.org/get_started/embedding_viz">教程</a> 获取更多信息
           
-          <h4><span class="step-label">Step 1:</span> Make data public</h4>
+          <h4><span class="step-label">第一步:</span> 公开数据</h4>
           <p>
-            Host tensors, metadata, sprite image, and bookmarks TSV files <i>publicly</i> on the web.
+            在网站上<i>公开</i>您的张量、元数据、标记图片以及书签的tsv文件.
           
           <p>
-            One option is using a <a target="_blank" href="https://gist.github.com/">github gist</a>.
-            If you choose this approach, make sure to link directly to the raw file.
+            您可以使用 <a target="_blank" href="https://gist.github.com/">github gist</a>.
+            如果您使用以上方法，请确认链接直接指向原始文件
           
         </div>
         <div>
-          <h4><span class="step-label">Step 2:</span> Projector config</h4>
+          <h4><span class="step-label">第二步:</span> 配置Projector</h4>
           <div class="projector-config-options">
-            <i>Optional:</i>
+            <i>选项:</i>
             <div class="config-checkbox">
-              <paper-checkbox id="config-metadata-checkbox" checked>Metadata</paper-checkbox>
+              <paper-checkbox id="config-metadata-checkbox" checked>元数据</paper-checkbox>
             </div>
             <div class="config-checkbox">
-              <paper-checkbox id="config-sprite-checkbox">Sprite</paper-checkbox>
+              <paper-checkbox id="config-sprite-checkbox">标记图片</paper-checkbox>
             </div>
             <div class="config-checkbox">
-              <paper-checkbox id="config-bookmarks-checkbox">Bookmarks</paper-checkbox>
+              <paper-checkbox id="config-bookmarks-checkbox">书签</paper-checkbox>
             </div>
           </div>
         </div>
         <paper-textarea id="projector-config-template" label="template_projector_config.json"></paper-textarea>
         <div>
-          <h4><span class="step-label">Step 3:</span> Host projector config</h4>
-          After you have hosted the projector config JSON file you built above, paste the URL to the config below.
+          <h4><span class="step-label">第三步:</span> 托管您的配置文件</h4>
+          您托管projector的配置文件后，在下面黏贴您的URL
         </div>
         <paper-input id="projector-config-url" label="Path to projector config"></paper-input>
         <paper-input id="projector-share-url" label="Your shareable URL" readonly></paper-input>
         <div id="projector-share-button-container">
           <a target="_blank" id="projector-share-url-link">
-            <paper-button title="Test your shareable URL" class="ink-button">Test your shareable URL</paper-button>
+            <paper-button title="Test your shareable URL" class="ink-button">测试可分享的URL</paper-button>
           </a>
         </div>
       </paper-dialog-scrollable>
-      <div class="dismiss-dialog-note">Click outside to dismiss.</div>
+      <div class="dismiss-dialog-note">点击框外取消</div>
     </paper-dialog>
   </div>
   <paper-checkbox id="normalize-data-checkbox" checked="{{normalizeData}}">
-    Sphereize data
+    球面化数据
     <paper-icon-button icon="help" class="help-icon"></paper-icon-button>
     <paper-tooltip position="bottom" animation-delay="0" fit-to-visible-bounds>
-      The data is normalized by shifting each point by the centroid and making
-      it unit norm.
+      通过将每个点按质心移动并使其成为单位范数来对数据进行归一化。
     </paper-tooltip>
   </paper-checkbox>
   <div class="dirs">
     <table>
       <tr>
-        <td>Checkpoint:</td>
+        <td>检查点:</td>
         <td><span id="checkpoint-file"></span></td>
       </tr>
       <tr>
-        <td>Metadata:</td>
+        <td>元数据:</td>
         <td><span id="metadata-file"></span></td>
       </tr>
     </table>
@@ -11642,7 +11643,7 @@ paper-dropdown-menu paper-item {
 </template>
 <script>//~~WEBPATH~~/vz-projector/vz-projector-data-panel.js
 zc=this&&this.__extends||function(){var a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(b,c){b.__proto__=c}||function(b,c){for(var d in c)c.hasOwnProperty(d)&&(b[d]=c[d])};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,new d)}}();
-(function(a){a.DataPanelPolymer=a.PolymerElement({is:"vz-projector-data-panel",properties:{selectedTensor:{type:String,observer:"_selectedTensorChanged"},selectedRun:String,selectedColorOptionName:{type:String,notify:!0,observer:"_selectedColorOptionNameChanged"},selectedLabelOption:{type:String,notify:!0,observer:"_selectedLabelOptionChanged"},normalizeData:Boolean,showForceCategoricalColorsCheckbox:Boolean,metadataEditorInput:{type:String},metadataEditorInputLabel:{type:String,value:"Tag selection as"},
+(function(a){a.DataPanelPolymer=a.PolymerElement({is:"vz-projector-data-panel",properties:{selectedTensor:{type:String,observer:"_selectedTensorChanged"},selectedRun:String,selectedColorOptionName:{type:String,notify:!0,observer:"_selectedColorOptionNameChanged"},selectedLabelOption:{type:String,notify:!0,observer:"_selectedLabelOptionChanged"},normalizeData:Boolean,showForceCategoricalColorsCheckbox:Boolean,metadataEditorInput:{type:String},metadataEditorInputLabel:{type:String,value:"选择标记为"},
 metadataEditorInputChange:{type:Object},metadataEditorColumn:{type:String},metadataEditorColumnChange:{type:Object},metadataEditorButtonClicked:{type:Object},metadataEditorButtonDisabled:{type:Boolean},downloadMetadataClicked:{type:Boolean},superviseInput:{type:String},superviseInputTyping:{type:Object},superviseInputChange:{type:Object},superviseInputLabel:{type:String,value:"Ignored label"},superviseColumn:{type:String},superviseColumnChanged:{type:Object},showSuperviseSettings:{type:Boolean,value:!1}},
 observers:["_generateUiForNewCheckpointForRun(selectedRun)"]});var b=function(c){function d(){var e=null!==c&&c.apply(this,arguments)||this;e.forceCategoricalColoring=!1;return e}zc(d,c);d.prototype.ready=function(){this.normalizeData=!0;this.superviseInputSelected=""};d.prototype.initialize=function(e,g){var h=this;this.projector=e;this.dataProvider=g;this.setupUploadButtons();this.querySelector("#normalize-data-checkbox").addEventListener("change",function(){h.projector.setNormalizeData(h.normalizeData)});
 var k=this.querySelector("#force-categorical-checkbox");k.addEventListener("change",function(){h.setForceCategoricalColoring(k.checked)});this.dataProvider.retrieveRuns(function(l){h.runNames=l;0<h.runNames.length&&(h.selectedRun!=l[0]?h.selectedRun=l[0]:h._generateUiForNewCheckpointForRun(h.selectedRun))})};d.prototype.setForceCategoricalColoring=function(e){this.forceCategoricalColoring=e;this.querySelector("#force-categorical-checkbox").checked=this.forceCategoricalColoring;this.updateMetadataUI(this.spriteAndMetadata.stats,
@@ -11653,7 +11654,7 @@ k.title=g;var l=-1;this.labelOptions=e.map(function(m,n){m.isNumeric||-1!==l||(l
 m.isNumeric}).map(function(m){if(h.forceCategoricalColoring||!m.tooManyUniqueValues){var n=d3.scaleOrdinal(d3.schemeCategory10);var q=n.range();var p=q.map(function(v,u){return q[3*u%q.length]});var t=m.uniqueEntries;n.range(p).domain(t.map(function(v){return v.label}));p=m.uniqueEntries.length;p=p+" "+(p>q.length?" non-unique":"")+" colors"}else{var r=[{color:"#ffffdd",value:m.min},{color:"#1f2d86",value:m.max}];n=d3.scaleLinear().domain(r.map(function(v){return v.value})).range(r.map(function(v){return v.color}));
 p="gradient"}return{name:m.name,desc:p,map:n,items:t,thresholds:r,tooManyUniqueValues:m.tooManyUniqueValues}});0<e.length&&g.push({name:"Metadata",isSeparator:!0});this.colorOptions=g.concat(e)};d.prototype.metadataEditorContext=function(e){this.metadataEditorButtonDisabled=!e;this.projector&&this.projector.metadataEditorContext(e,this.metadataEditorColumn)};d.prototype.metadataEditorInputChange=function(){var e=this.metadataEditorColumn,g=this.metadataEditorInput,h=this.selectedPointIndices.length+
 this.neighborsOfFirstPoint.length;0<h?null!=g&&""!==g.trim()?this.spriteAndMetadata.stats.filter(function(k){return k.name===e})[0].isNumeric&&isNaN(+g)?(this.metadataEditorInputLabel="Label must be numeric",this.metadataEditorContext(!1)):(0===this.projector.dataSet.points.filter(function(k){return k.metadata[e].toString()===g.trim()}).length?this.metadataEditorInputLabel="Tag "+h+" with new label":this.metadataEditorInputLabel="Tag "+h+" points as",this.metadataEditorContext(!0)):(this.metadataEditorInputLabel=
-"Tag selection as",this.metadataEditorContext(!1)):(this.metadataEditorContext(!1),null!=g&&""!==g.trim()?this.metadataEditorInputLabel="Select points to tag":this.metadataEditorInputLabel="Tag selection as")};d.prototype.metadataEditorInputKeydown=function(e){13===e.keyCode&&this.metadataEditorButtonClicked();e.stopPropagation()};d.prototype.metadataEditorColumnChange=function(){this.metadataEditorInputChange()};d.prototype.metadataEditorButtonClicked=function(){if(!this.metadataEditorButtonDisabled){var e=
+"选择标记为",this.metadataEditorContext(!1)):(this.metadataEditorContext(!1),null!=g&&""!==g.trim()?this.metadataEditorInputLabel="Select points to tag":this.metadataEditorInputLabel="选择标记为")};d.prototype.metadataEditorInputKeydown=function(e){13===e.keyCode&&this.metadataEditorButtonClicked();e.stopPropagation()};d.prototype.metadataEditorColumnChange=function(){this.metadataEditorInputChange()};d.prototype.metadataEditorButtonClicked=function(){if(!this.metadataEditorButtonDisabled){var e=
 this.metadataEditorInput.trim(),g=this.selectedPointIndices.length+this.neighborsOfFirstPoint.length;this.projector.metadataEdit(this.metadataEditorColumn,e);this.projector.metadataEditorContext(!0,this.metadataEditorColumn);this.metadataEditorInputLabel=g+" labeled as '"+e+"'"}};d.prototype.downloadMetadataClicked=function(){if(this.projector&&this.projector.dataSet&&this.projector.dataSet.spriteAndMetadataInfo){var e=this.projector.dataSet.spriteAndMetadataInfo.stats.map(function(h){return h.name}).join("\t");
 this.projector.dataSet.spriteAndMetadataInfo.pointsInfo.forEach(function(h){var k=[],l;for(l in h)k.push(h[l]);e+="\n"+k.join("\t")});var g=new Blob([e],{type:"text/plain"});this.$.downloadMetadataLink.download="metadata-edited.tsv";this.$.downloadMetadataLink.href=window.URL.createObjectURL(g);this.$.downloadMetadataLink.click()}};d.prototype.superviseInputTyping=function(){var e=this,g=this.superviseInput.trim();if(null==g||""===g.trim())this.superviseInputLabel=""===this.superviseInputSelected?
 "No ignored label":"Supervising without '"+this.superviseInputSelected+"'";else if(this.projector&&this.projector.dataSet){var h=this.projector.dataSet.points.filter(function(k){return k.metadata[e.superviseColumn].toString().trim()===g}).length;0===h?this.superviseInputLabel="Label not found":this.projector.dataSet.superviseInput!=g&&(this.superviseInputLabel="Supervise without '"+g+"' ["+h+" points]")}};d.prototype.superviseInputChange=function(){var e=this,g=this.superviseInput.trim();if(null==
@@ -11667,8 +11668,8 @@ d.prototype.metadataWasReadFromFile=function(e,g){var h=this;a.parseRawMetadata(
 v.name)};u.readAsArrayBuffer(v)};this.querySelector("#upload-tensors").onclick=function(){g.click()};var h=this.querySelector("#file-metadata");h.onchange=function(){var v=h.files[0];h.value="";var u=new FileReader;u.onload=function(){e.metadataWasReadFromFile(u.result,v.name)};u.readAsArrayBuffer(v)};this.querySelector("#upload-metadata").onclick=function(){h.click()};"demo"!==this.projector.servingMode&&(this.$$("#publish-container").style.display="none",this.$$("#upload-tensors-step-container").style.display=
 "none",this.$$("#upload-metadata-label").style.display="none");this.$$("#demo-data-buttons-container").style.display="flex";var k=this.$$("#projector-config-template"),l={embeddings:[{tensorName:"My tensor",tensorShape:[1E3,50],tensorPath:"https://raw.githubusercontent.com/.../tensors.tsv",metadataPath:"https://raw.githubusercontent.com/.../optional.metadata.tsv"}]};this.setProjectorConfigTemplateJson(k,l);var m=this.$$("#config-sprite-checkbox");m.onchange=function(){m.checked?l.embeddings[0].sprite=
 {imagePath:"https://github.com/.../optional.sprite.png",singleImageDim:[32,32]}:delete l.embeddings[0].sprite;e.setProjectorConfigTemplateJson(k,l)};var n=this.$$("#config-bookmarks-checkbox");n.onchange=function(){n.checked?l.embeddings[0].bookmarksPath="https://raw.githubusercontent.com/.../bookmarks.txt":delete l.embeddings[0].bookmarksPath;e.setProjectorConfigTemplateJson(k,l)};var q=this.$$("#config-metadata-checkbox");q.onchange=function(){q.checked?l.embeddings[0].metadataPath="https://raw.githubusercontent.com/.../optional.metadata.tsv":
-delete l.embeddings[0].metadataPath;e.setProjectorConfigTemplateJson(k,l)};var p=this.$$("#projector-config-url"),t=this.$$("#projector-share-url"),r=this.$$("#projector-share-url-link");p.onchange=function(){var v=location.protocol+"//"+location.host+location.pathname+"?config\x3d"+p.value;t.value=v;r.href=v}};d.prototype.setProjectorConfigTemplateJson=function(e,g){e.value=JSON.stringify(g,null,2)};d.prototype._getNumTensorsLabel=function(){return 1===this.tensorNames.length?"1 tensor":this.tensorNames.length+
-" tensors"};d.prototype._getNumRunsLabel=function(){return 1===this.runNames.length?"1 run":this.runNames.length+" runs"};d.prototype._hasChoice=function(e){return 0<e.length};d.prototype._hasChoices=function(e){return 1<e.length};return d}(a.DataPanelPolymer);a.DataPanel=b;document.registerElement(b.prototype.is,b)})(wc||(wc={}));
+delete l.embeddings[0].metadataPath;e.setProjectorConfigTemplateJson(k,l)};var p=this.$$("#projector-config-url"),t=this.$$("#projector-share-url"),r=this.$$("#projector-share-url-link");p.onchange=function(){var v=location.protocol+"//"+location.host+location.pathname+"?config\x3d"+p.value;t.value=v;r.href=v}};d.prototype.setProjectorConfigTemplateJson=function(e,g){e.value=JSON.stringify(g,null,2)};d.prototype._getNumTensorsLabel=function(){return 1===this.tensorNames.length?"1 个张量数据集":this.tensorNames.length+
+" 个张量数据集"};d.prototype._getNumRunsLabel=function(){return 1===this.runNames.length?"1 run":this.runNames.length+" runs"};d.prototype._hasChoice=function(e){return 0<e.length};d.prototype._hasChoices=function(e){return 1<e.length};return d}(a.DataPanelPolymer);a.DataPanel=b;document.registerElement(b.prototype.is,b)})(wc||(wc={}));
 </script>
 </dom-module>
 
@@ -11699,7 +11700,7 @@ delete l.embeddings[0].metadataPath;e.setProjectorConfigTemplateJson(k,l)};var p
   width: 17px;
 }
 
-.toggle[active] {
+.tog张量] {
   background-color: #880E4F;
   color: white;
 }
@@ -12415,13 +12416,13 @@ a.preventDefault())},_changeValue:function(a){this.value=a.target.value;this.fir
 <template>
 <div class="container">
   <div class="buttons">
-    <button class="button reset-filter">Show All Data</button>
-    <button class="button set-filter">Isolate selection</button>
-    <button class="button clear-selection">Clear selection</button>
+    <button class="button reset-filter">显示所有数据</button>
+    <button class="button set-filter">单独显示相关数据</button>
+    <button class="button clear-selection">清空所选数据</button>
   </div>
   <div class="search-by">
-    <vz-projector-input id="search-box" label="Search"></vz-projector-input>
-    <paper-dropdown-menu no-animations label="by">
+    <vz-projector-input id="search-box" label="搜索"></vz-projector-input>
+    <paper-dropdown-menu no-animations label="属性">
       <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedMetadataField}}" slot="dropdown-content">
         <template is="dom-repeat" items="[[metadataFields]]">
           <paper-item value="[[item]]" label="[[item]]">
@@ -12437,23 +12438,23 @@ a.preventDefault())},_changeValue:function(a){this.value=a.target.value;this.fir
     <div class="neighbors">
       <div class="neighbors-options">
         <div class="slider num-nn">
-          <span class="option-label">neighbors</span>
+          <span class="option-label">相邻数</span>
           <paper-icon-button icon="help" class="help-icon"></paper-icon-button>
           <paper-tooltip position="bottom" animation-delay="0" fit-to-visible-bounds>
-            The number of neighbors (in the original space) to show when clicking on a point.
+            显示在原始空间中相关程度最大的数据点（The number of neighbors (in the original space) to show when clicking on a point.）
           </paper-tooltip>
           <paper-slider class="nn-slider" pin min="5" max="999" editable value="{{numNN}}" on-change="updateNumNN"></paper-slider>
         </div>
       </div>
       <div class="distance">
-        <span class="option-label">distance</span>
+        <span class="option-label">距离计算方式</span>
         <div class="options">
-          <a class="selected cosine" href="javascript:void(0);">COSINE</a>
-          <a class="euclidean" href="javascript:void(0);">EUCLIDEAN</a>
+          <a class="selected cosine" href="javascript:void(0);">余弦距离</a>
+          <a class="euclidean" href="javascript:void(0);">欧氏距离</a>
         </div>
       </div>
     </div>
-    <p>Nearest points in the original space:
+    <p>在原始空间中最相近的数据点:
     <div class="nn-list"></div>
   </div>
   <div class="metadata-info" style="display: none">
@@ -12462,7 +12463,7 @@ a.preventDefault())},_changeValue:function(a){this.value=a.target.value;this.fir
         <span class="option-label">neighbors</span>
         <paper-icon-button icon="help" class="help-icon"></paper-icon-button>
         <paper-tooltip position="bottom" animation-delay="0" fit-to-visible-bounds>
-          The number of neighbors (in the selected space) to show when clicking on a point.
+          显示在目前空间中相关程度最大的数据点 （The number of neighbors (in the selected space) to show when clicking on a point.）
         </paper-tooltip>
         <paper-slider class="nn-slider" pin min="5" max="999" editable value="{{numNN}}" on-change="updateNumNN"></paper-slider>
       </div>
@@ -12490,7 +12491,7 @@ l.appendChild(q);p.onclick=function(){h.projector.metadataEdit(g,n.label)}})}}};
 t=document.createElement("a");t.className="label";t.title=p;t.innerText=p;t.onmouseenter=function(){g.projectorEventContext.notifyHoverOverPoint(q)};t.onmouseleave=function(){g.projectorEventContext.notifyHoverOverPoint(null)};t.onclick=function(){g.projectorEventContext.notifySelectionChanged([q])};n.appendChild(t);h.appendChild(n)},l=this,m=0;m<e.length;m++)k(m)}};d.prototype.getLabelFromIndex=function(e){return this.projector.dataSet.points[e].metadata[this.selectedMetadataField].toString()};d.prototype.updateNeighborsList=
 function(e){var g=this,h=this.querySelector(".nn-list");h.innerHTML="";if(0===e.length)this.removeContext(".nn");else{this.addContext(".nn");this.searchBox.message="";for(var k=0<e.length?e[0].dist:0,l=function(q){var p=e[q];q=document.createElement("div");q.className="neighbor";var t=document.createElement("a");t.className="neighbor-link";t.title=m.getLabelFromIndex(p.index);var r=document.createElement("div");r.className="label-and-value";var v=document.createElement("div");v.className="label";
 v.style.color=a.dist2color(m.distFunc,p.dist,k);v.innerText=m.getLabelFromIndex(p.index);var u=document.createElement("div");u.className="value";u.innerText=p.dist.toFixed(3);r.appendChild(v);r.appendChild(u);v=document.createElement("div");v.className="bar";u=document.createElement("div");u.className="fill";u.style.borderTopColor=a.dist2color(m.distFunc,p.dist,k);u.style.width=100*a.normalizeDist(m.distFunc,p.dist,k)+"%";v.appendChild(u);for(u=1;4>u;u++){var w=document.createElement("div");w.className=
-"tick";w.style.left=100*u/4+"%";v.appendChild(w)}t.appendChild(r);t.appendChild(v);q.appendChild(t);h.appendChild(q);t.onmouseenter=function(){g.projectorEventContext.notifyHoverOverPoint(p.index)};t.onmouseleave=function(){g.projectorEventContext.notifyHoverOverPoint(null)};t.onclick=function(){g.projectorEventContext.notifySelectionChanged([p.index])}},m=this,n=0;n<e.length;n++)l(n)}};d.prototype.updateFilterButtons=function(e){1<e?(this.setFilterButton.innerText="Isolate "+e+" points",this.setFilterButton.disabled=
+"tick";w.style.left=100*u/4+"%";v.appendChild(w)}t.appendChild(r);t.appendChild(v);q.appendChild(t);h.appendChild(q);t.onmouseenter=function(){g.projectorEventContext.notifyHoverOverPoint(p.index)};t.onmouseleave=function(){g.projectorEventContext.notifyHoverOverPoint(null)};t.onclick=function(){g.projectorEventContext.notifySelectionChanged([p.index])}},m=this,n=0;n<e.length;n++)l(n)}};d.prototype.updateFilterButtons=function(e){1<e?(this.setFilterButton.innerText="单独显示 "+e+" 个相关数据",this.setFilterButton.disabled=
 null,this.clearSelectionButton.disabled=null):(this.setFilterButton.disabled=!0,this.clearSelectionButton.disabled=!0)};d.prototype.setupUI=function(e){var g=this;this.distFunc=a.vector.cosDist;var h=this.querySelector(".distance a.euclidean");h.onclick=function(){for(var l=g.querySelectorAll(".distance a"),m=0;m<l.length;m++)a.util.classed(l[m],"selected",!1);a.util.classed(h,"selected",!0);g.distFunc=a.vector.dist;g.projectorEventContext.notifyDistanceMetricChanged(g.distFunc);l=e.dataSet.findNeighbors(g.selectedPointIndices[0],
 g.distFunc,g.numNN);g.updateNeighborsList(l)};var k=this.querySelector(".distance a.cosine");k.onclick=function(){for(var l=g.querySelectorAll(".distance a"),m=0;m<l.length;m++)a.util.classed(l[m],"selected",!1);a.util.classed(k,"selected",!0);g.distFunc=a.vector.cosDist;g.projectorEventContext.notifyDistanceMetricChanged(g.distFunc);l=e.dataSet.findNeighbors(g.selectedPointIndices[0],g.distFunc,g.numNN);g.updateNeighborsList(l)};this.searchBox.registerInputChangedListener(function(l,m){null==l||
 ""===l.trim()?(g.searchBox.message="",g.projectorEventContext.notifySelectionChanged([])):(l=e.dataSet.query(l,m,g.selectedMetadataField),g.searchBox.message=0===l.length?"0 matches.":l.length+" matches.",g.projectorEventContext.notifySelectionChanged(l))});this.setFilterButton.onclick=function(){var l=g.selectedPointIndices.concat(g.neighborsOfFirstPoint.map(function(m){return m.index}));e.filterDataset(l);g.enableResetFilterButton(!0);g.updateFilterButtons(0)};this.resetFilterButton.onclick=function(){e.resetFilterDataset();
@@ -13230,8 +13231,8 @@ a.ProjectionsPanel=b;document.registerElement(b.prototype.is,b)})(wc||(wc={}));
       <paper-icon-button id="labels3DMode" alt="Enable/disable 3D labels mode" toggles icon="font-download"></paper-icon-button>
       <paper-tooltip for="labels3DMode" position="bottom" animation-delay="0" fit-to-visible-bounds>Enable/disable 3D labels mode</paper-tooltip>
       <div class="status-bar-panel">
-        <div class="status-bar-entry">Points: <span class="numDataPoints">Loading...</span></div>
-        <div class="status-bar-entry">Dimension: <span class="dim">Loading...</span></div>
+        <div class="status-bar-entry">数据量: <span class="numDataPoints">加载中...</span></div>
+        <div class="status-bar-entry">维度: <span class="dim">加载中...</span></div>
         <div id="status-bar" class="status-bar-entry" style="display: none;"></div>
       </div>
       <div class="ink-fabs">
@@ -13296,7 +13297,7 @@ null!=e&&this.normalizeData&&e.normalize();this.dim=null==e?0:e.dim[1];this.quer
 this;this.querySelector("#reset-zoom").addEventListener("click",function(){e.projectorScatterPlotAdapter.scatterPlot.resetZoom();e.projectorScatterPlotAdapter.scatterPlot.startOrbitAnimation()});var g=this.querySelector("#selectMode");g.addEventListener("click",function(){e.setMouseMode(g.active?a.MouseMode.AREA_SELECT:a.MouseMode.CAMERA_AND_CLICK_SELECT)});var h=this.querySelector("#nightDayMode");h.addEventListener("click",function(){e.projectorScatterPlotAdapter.scatterPlot.setDayNightMode(h.active)});
 var k=this.querySelector("#editMode");k.addEventListener("click",function(){e.editMode=k.active});this.get3DLabelModeButton().addEventListener("click",function(){e.projectorScatterPlotAdapter.set3DLabelMode(e.get3DLabelMode())});window.addEventListener("resize",function(){e.parentNode.style.height=document.body.clientHeight+"px";e.projectorScatterPlotAdapter.resize()});this.projectorScatterPlotAdapter=new a.ProjectorScatterPlotAdapter(this.getScatterContainer(),this);this.projectorScatterPlotAdapter.setLabelPointAccessor(this.selectedLabelOption);
 this.projectorScatterPlotAdapter.scatterPlot.onCameraMove(function(){return e.bookmarkPanel.clearStateSelection()});this.registerHoverListener(function(l){return e.onHover(l)});this.registerProjectionChangedListener(function(l){return e.onProjectionChanged(l)});this.registerSelectionChangedListener(function(l,m){return e.onSelectionChanged(l,m)})};d.prototype.onHover=function(e){this.hoverPointIndex=e;var g=null;null!=e&&(e=this.dataSet.points[e],e.metadata[this.selectedLabelOption]&&(g=e.metadata[this.selectedLabelOption].toString()));
-0===this.selectedPointIndices.length&&(this.statusBar.style.display=g?null:"none",this.statusBar.innerText=g)};d.prototype.getScatterContainer=function(){return this.querySelector("#scatter")};d.prototype.onSelectionChanged=function(e,g){this.selectedPointIndices=e;this.neighborsOfFirstPoint=g;this.dataPanel.onProjectorSelectionChanged(e,g);e=this.selectedPointIndices.length+g.length;this.statusBar.innerText="Selected "+e+" points";this.statusBar.style.display=0<e?null:"none"};d.prototype.onProjectionChanged=
+0===this.selectedPointIndices.length&&(this.statusBar.style.display=g?null:"none",this.statusBar.innerText=g)};d.prototype.getScatterContainer=function(){return this.querySelector("#scatter")};d.prototype.onSelectionChanged=function(e,g){this.selectedPointIndices=e;this.neighborsOfFirstPoint=g;this.dataPanel.onProjectorSelectionChanged(e,g);e=this.selectedPointIndices.length+g.length;this.statusBar.innerText="已选择 "+e+" 个数据";this.statusBar.style.display=0<e?null:"none"};d.prototype.onProjectionChanged=
 function(e){this.dataPanel.projectionChanged(e)};d.prototype.setProjection=function(e){this.projection=e;null!=e&&this.analyticsLogger.logProjectionChanged(e.projectionType);this.notifyProjectionChanged(e)};d.prototype.notifyProjectionPositionsUpdated=function(){this.projectorScatterPlotAdapter.notifyProjectionPositionsUpdated()};d.prototype.getCurrentState=function(){var e=new a.State;e.projections=[];for(var g=0;g<this.dataSet.points.length;g++){for(var h=this.dataSet.points[g],k={},l=Object.keys(h.projections),
 m=0;m<l.length;++m)k[l[m]]=h.projections[l[m]];e.projections.push(k)}e.selectedProjection=this.projection.projectionType;e.dataSetDimensions=this.dataSet.dim;e.tSNEIteration=this.dataSet.tSNEIteration;e.selectedPoints=this.selectedPointIndices;e.filteredPoints=this.dataSetFilterIndices;this.projectorScatterPlotAdapter.populateBookmarkFromUI(e);e.selectedColorOptionName=this.dataPanel.selectedColorOptionName;e.forceCategoricalColoring=this.dataPanel.forceCategoricalColoring;e.selectedLabelOption=this.selectedLabelOption;
 this.projectionsPanel.populateBookmarkFromUI(e);return e};d.prototype.loadState=function(e){this.setProjection(null);this.projectionsPanel.disablePolymerChangesTriggerReprojection();null!=this.dataSetBeforeFilter&&this.resetFilterDataset();null!=e.filteredPoints&&this.filterDataset(e.filteredPoints);this.projectionsPanel.enablePolymerChangesTriggerReprojection();for(var g=0;g<e.projections.length;g++)for(var h=this.dataSet.points[g],k=e.projections[g],l=Object.keys(k),m=0;m<l.length;++m)h.projections[l[m]]=
@@ -13344,7 +13345,7 @@ vz-projector {
 
 <div id="container">
   <div id="appbar">
-    <div>Embedding Projector</div>
+    <div>高维数据可视化工具</div>
     <div class="icons">
       <a title="Documentation" target="_blank" href="[[documentationLink]]">
         <paper-icon-button icon="help-outline"></paper-icon-button>
