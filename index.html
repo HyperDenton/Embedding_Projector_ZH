@@ -10743,12 +10743,10 @@ paper-textarea {
 <div id="bookmark-container">
   <div id="header">
     <div id="title">
-      BOOKMARKS ([[savedStates.length]])
+      书签 ([[savedStates.length]])
       <paper-icon-button icon="help" class="help-icon"></paper-icon-button>
       <paper-tooltip animation-delay="0" position="top" offset="0">
-        Open this drawer to save a set of views of the projection, including
-        selected points. A file containing the bookmarks can then be saved and
-        later loaded to view them.
+        保存一组投影视图，包括选定的点。然后可以保存包含书签的文件，以后再加载以查看它们。
       </paper-tooltip>
     </div>
     <div id="icon-container">
@@ -10762,7 +10760,7 @@ paper-textarea {
     <div id="state-section">
       <template is="dom-if" if="[[!savedStates.length]]">
         <p id="no-bookmarks">
-            No bookmarks yet, upload a bookmarks file or add a new bookmark by clicking the "+" below.
+          尚无书签，请单击下面的“ +”上传书签文件或添加新书签。
         
       </template>
 
@@ -10786,9 +10784,9 @@ paper-textarea {
       </template>
 
       <div id="action-buttons-container">
-        <paper-icon-button class="upload-download-icon-button" icon="save" title="Save bookmarks" disabled="[[!hasStates]]" on-tap="_downloadFile"></paper-icon-button>
-        <paper-icon-button class="upload-download-icon-button" icon="file-upload" title="Load bookmarks" on-tap="_uploadFile"></paper-icon-button>
-        <paper-icon-button class="add-icon-button ink-fab" icon="add" title="Add bookmark" on-tap="_addBookmark"></paper-icon-button>
+        <paper-icon-button class="upload-download-icon-button" icon="save" title="保存书签" disabled="[[!hasStates]]" on-tap="_downloadFile"></paper-icon-button>
+        <paper-icon-button class="upload-download-icon-button" icon="file-upload" title="加载书签" on-tap="_uploadFile"></paper-icon-button>
+        <paper-icon-button class="add-icon-button ink-fab" icon="add" title="添加书签" on-tap="_addBookmark"></paper-icon-button>
         <input type="file" id="state-file" name="state-file">
       </div>
     </div>
@@ -11517,7 +11515,7 @@ paper-dropdown-menu paper-item {
       <paper-tooltp position="bottom" animation-delay="0" fit-to-visible-bounds>
         
       </paper-tooltip>
-      <paper-button class="ink-button" on-click="metadataEditorButtonClicked" disabled="[[metadataEditorButtonDisabled]]">Label</paper-button>
+      <paper-button class="ink-button" on-click="metadataEditorButtonClicked" disabled="[[metadataEditorButtonDisabled]]">标签</paper-button>
     </span>
   </div>
   <div>
@@ -11650,7 +11648,7 @@ var k=this.querySelector("#force-categorical-checkbox");k.addEventListener("chan
 this.metadataFile);this._selectedColorOptionNameChanged()};d.prototype.getSeparatorClass=function(e){return e?"separator":null};d.prototype.metadataChanged=function(e,g){var h=this;this.spriteAndMetadata=e;null!=g&&(this.metadataFile=g);this.updateMetadataUI(this.spriteAndMetadata.stats,this.metadataFile);if(null==this.selectedColorOptionName||0===this.colorOptions.filter(function(l){return l.name===h.selectedColorOptionName}).length)this.selectedColorOptionName=this.colorOptions[0].name;var k=-1;
 this.metadataFields=e.stats.map(function(l,m){l.isNumeric||-1!==k||(k=m);return l.name});if(null==this.metadataEditorColumn||0===this.metadataFields.filter(function(l){return l===h.metadataEditorColumn}).length)this.metadataEditorColumn=this.metadataFields[Math.max(0,k)];if(null==this.superviseColumn||0===this.metadataFields.filter(function(l){return l===h.superviseColumn}).length)this.superviseColumn=this.metadataFields[Math.max(0,k)],this.superviseInput="";this.superviseInputChange()};d.prototype.projectionChanged=
 function(e){if(e)switch(e.projectionType){case "tsne":this.set("showSuperviseSettings",!0);break;default:this.set("showSuperviseSettings",!1)}};d.prototype.onProjectorSelectionChanged=function(e,g){this.selectedPointIndices=e;this.neighborsOfFirstPoint=g;this.metadataEditorInputChange()};d.prototype.addWordBreaks=function(e){return null==e?"":e.replace(/([\/=-_,])/g,"$1\x3cwbr\x3e")};d.prototype.updateMetadataUI=function(e,g){var h=this,k=this.querySelector("#metadata-file");k.innerHTML=this.addWordBreaks(g);
-k.title=g;var l=-1;this.labelOptions=e.map(function(m,n){m.isNumeric||-1!==l||(l=n);return m.name});if(null==this.selectedLabelOption||0===this.labelOptions.filter(function(m){return m===h.selectedLabelOption}).length)this.selectedLabelOption=this.labelOptions[Math.max(0,l)];if(null==this.metadataEditorColumn||0===this.labelOptions.filter(function(m){return m===h.metadataEditorColumn}).length)this.metadataEditorColumn=this.labelOptions[Math.max(0,l)];g=[{name:"No color map"}];e=e.filter(function(m){return!m.tooManyUniqueValues||
+k.title=g;var l=-1;this.labelOptions=e.map(function(m,n){m.isNumeric||-1!==l||(l=n);return m.name});if(null==this.selectedLabelOption||0===this.labelOptions.filter(function(m){return m===h.selectedLabelOption}).length)this.selectedLabelOption=this.labelOptions[Math.max(0,l)];if(null==this.metadataEditorColumn||0===this.labelOptions.filter(function(m){return m===h.metadataEditorColumn}).length)this.metadataEditorColumn=this.labelOptions[Math.max(0,l)];g=[{name:"不进行颜色映射"}];e=e.filter(function(m){return!m.tooManyUniqueValues||
 m.isNumeric}).map(function(m){if(h.forceCategoricalColoring||!m.tooManyUniqueValues){var n=d3.scaleOrdinal(d3.schemeCategory10);var q=n.range();var p=q.map(function(v,u){return q[3*u%q.length]});var t=m.uniqueEntries;n.range(p).domain(t.map(function(v){return v.label}));p=m.uniqueEntries.length;p=p+" "+(p>q.length?" non-unique":"")+" colors"}else{var r=[{color:"#ffffdd",value:m.min},{color:"#1f2d86",value:m.max}];n=d3.scaleLinear().domain(r.map(function(v){return v.value})).range(r.map(function(v){return v.color}));
 p="gradient"}return{name:m.name,desc:p,map:n,items:t,thresholds:r,tooManyUniqueValues:m.tooManyUniqueValues}});0<e.length&&g.push({name:"Metadata",isSeparator:!0});this.colorOptions=g.concat(e)};d.prototype.metadataEditorContext=function(e){this.metadataEditorButtonDisabled=!e;this.projector&&this.projector.metadataEditorContext(e,this.metadataEditorColumn)};d.prototype.metadataEditorInputChange=function(){var e=this.metadataEditorColumn,g=this.metadataEditorInput,h=this.selectedPointIndices.length+
 this.neighborsOfFirstPoint.length;0<h?null!=g&&""!==g.trim()?this.spriteAndMetadata.stats.filter(function(k){return k.name===e})[0].isNumeric&&isNaN(+g)?(this.metadataEditorInputLabel="Label must be numeric",this.metadataEditorContext(!1)):(0===this.projector.dataSet.points.filter(function(k){return k.metadata[e].toString()===g.trim()}).length?this.metadataEditorInputLabel="Tag "+h+" with new label":this.metadataEditorInputLabel="Tag "+h+" points as",this.metadataEditorContext(!0)):(this.metadataEditorInputLabel=
@@ -12734,22 +12732,17 @@ zc=this&&this.__extends||function(){var a=Object.setPrototypeOf||{__proto__:[]}i
 
       <div data-tab="umap" id="umap-tab" class="ink-tab projection-tab">UMAP</div>
       <paper-tooltip for="umap-tab" position="bottom" animation-delay="0" fit-to-visible-bounds>
-        uniform manifold approximation and projection
+        统一流形逼近与投影(uniform manifold approximation and projection)
       </paper-tooltip>      
 
       <div data-tab="tsne" id="tsne-tab" class="ink-tab projection-tab">t-SNE</div>
       <paper-tooltip for="tsne-tab" position="bottom" animation-delay="0" fit-to-visible-bounds>
-        t-distributed stochastic neighbor embedding
+        T分布随机近邻嵌入(t-distributed stochastic neighbor embedding)
       </paper-tooltip>
 
       <div data-tab="pca" id="pca-tab" class="ink-tab projection-tab">PCA</div>
       <paper-tooltip for="pca-tab" position="bottom" animation-delay="0" fit-to-visible-bounds>
-        Principal component analysis
-      </paper-tooltip>
-
-      <div data-tab="custom" id="custom-tab" class="ink-tab projection-tab" title="Linear projection of two custom vectors">Custom</div>
-      <paper-tooltip for="custom-tab" position="bottom" animation-delay="0" fit-to-visible-bounds>
-        Search for two vectors upon which to project all points.
+        主成分分析(Principal component analysis)
       </paper-tooltip>
 
     </div>
@@ -12758,56 +12751,53 @@ zc=this&&this.__extends||function(){var a=Object.setPrototypeOf||{__proto__:[]}i
      
      <div data-panel="umap" class="ink-panel-content">
       <div class="slider">
-        <label>Dimension</label>
+        <label>维度</label>
         <div class="two-way-toggle">
-          <span>2D</span>
-          <paper-toggle-button id="umap-toggle" checked="{{umapIs3d}}">3D</paper-toggle-button>
+          <span>二维</span>
+          <paper-toggle-button id="umap-toggle" checked="{{umapIs3d}}">三维</paper-toggle-button>
         </div>
       </div>
       <div class="slider umap-neighbors">
         <label>
-          Neighbors
+          近邻数
           <paper-icon-button icon="help" class="help-icon"></paper-icon-button>
           <paper-tooltip position="right" animation-delay="0" fit-to-visible-bounds>
-            The number of nearest neighbors used to compute the fuzzy simplicial
-            set, which is used to approximate the overall shape of the manifold.
-            The default value is 15.
+            近邻数（neighbors）用于计算模糊简单集的最近邻居数，用于近似流行的整体形状。默认值为15。
           </paper-tooltip>
         </label>
         <paper-slider id="umap-neighbors-slider" value="{{umapNeighbors}}" pin min="5" max="50"></paper-slider>
         <span>[[umapNeighbors]]</span>
       </div>
       <p>
-        <button id="run-umap" class="ink-button" title="Run UMAP" on-tap="runUmap">Run</button>
+        <button id="run-umap" class="ink-button" title="Run UMAP" on-tap="runUmap">运行</button>
       
       <p id="umap-sampling" class="notice">
-        For faster results, the data will be sampled down to [[getUmapSampleSizeText()]] points.
+        为了更快地出结果，数据被采样为 [[getUmapSampleSizeText()]] 个数据点.
       
       <p>
         <iron-icon icon="book" class="book-icon"></iron-icon>
         <a target="_blank" rel="noopener" href="https://umap-learn.readthedocs.io/en/latest/how_umap_works.html">
-          Learn more about UMAP.
+          了解更多关于 UMAP.
         </a>
       
     </div>
     
     <div data-panel="tsne" class="ink-panel-content">
       <div class="slider">
-        <label>Dimension</label>
+        <label>维度</label>
         <div class="two-way-toggle">
-          <span>2D</span>
-          <paper-toggle-button id="tsne-toggle" checked="{{tSNEis3d}}">3D</paper-toggle-button>
+          <span>二维</span>
+          <paper-toggle-button id="tsne-toggle" checked="{{tSNEis3d}}">三维</paper-toggle-button>
         </div>
       </div>
       <div class="slider tsne-perplexity">
         <label>
-          Perplexity
+          困惑度
           <paper-icon-button icon="help" class="help-icon"></paper-icon-button>
           <paper-tooltip position="right" animation-delay="0" fit-to-visible-bounds>
-            The most appropriate perplexity value depends on the density of the
-            data. Loosely speaking, a larger / denser dataset
-            requires a larger perplexity. Typical values for perplexity range
-            between 5 and 50.
+            最合适的困惑度值取决于数据的密度。 
+            数据集越大、越密集，困惑值需更大。 
+            困惑值的取值一般在5到50之间。
           </paper-tooltip>
         </label>
         <paper-slider id="perplexity-slider" pin min="2" max="100" value="30"></paper-slider>
@@ -12815,11 +12805,11 @@ zc=this&&this.__extends||function(){var a=Object.setPrototypeOf||{__proto__:[]}i
       </div>
       <div class="slider tsne-learning-rate">
         <label>
-          Learning rate
+          学习率
           <paper-icon-button icon="help" class="help-icon"></paper-icon-button>
           <paper-tooltip position="right" animation-delay="0" fit-to-visible-bounds>
-            The ideal learning rate often depends on the size of the data,
-            with smaller datasets requiring smaller learning rates.
+            学习率通常取决于数据集的大小。
+            数据集越小，学习率也需要小。
           </paper-tooltip>
         </label>
         <paper-slider id="learning-rate-slider" snaps min="-3" max="2" step="1" value="1" max-markers="6">
@@ -12828,11 +12818,12 @@ zc=this&&this.__extends||function(){var a=Object.setPrototypeOf||{__proto__:[]}i
       </div>
       <div class="slider tsne-supervise-factor">
         <label>
-          Supervise
+          监督值
           <paper-icon-button icon="help" class="help-icon"></paper-icon-button>
           <paper-tooltip position="right" animation-delay="0" fit-to-visible-bounds>
-            The label importance used for supervision, from 0 (disabled) to 100
-            (full importance).
+            监督值（supervise）
+            衡量监督标签的重要程度，
+            在 0（完全不重要）至 100（完全重要）之间取值
           </paper-tooltip>
         </label>
         <paper-slider id="supervise-factor-slider" min="0" max="100" pin value="{{superviseFactor}}">
@@ -12840,18 +12831,18 @@ zc=this&&this.__extends||function(){var a=Object.setPrototypeOf||{__proto__:[]}i
         <span></span>
       </div>
       <p>
-        <button class="run-tsne ink-button" title="Re-run t-SNE">Run</button>
-        <button class="pause-tsne ink-button" title="Pause t-SNE">Pause</button>
-        <button class="perturb-tsne ink-button" title="Perturb t-SNE">Perturb</button>
+        <button class="run-tsne ink-button">运行</button>
+        <button class="pause-tsne ink-button">暂停</button>
+        <button class="perturb-tsne ink-button">扰动</button>
       
-      <p>Iteration: <span class="run-tsne-iter">0</span>
+      <p>迭代次数: <span class="run-tsne-iter">0</span>
       <p id="tsne-sampling" class="notice">
-        For faster results, the data will be sampled down to [[getTsneSampleSizeText()]] points.
+        为了更快地出结果，数据被采样为 [[getTsneSampleSizeText()]] 个数据点.
       
       <p>
         <iron-icon icon="book" class="book-icon"></iron-icon>
         <a target="_blank" href="http://distill.pub/2016/misread-tsne/">
-          How to use t-SNE effectively.
+          如何更有效率地利用t-SNE
         </a>
       
     </div>
@@ -12863,10 +12854,10 @@ zc=this&&this.__extends||function(){var a=Object.setPrototypeOf||{__proto__:[]}i
             <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{pcaX}}" slot="dropdown-content">
               <paper-item disabled class="dropdown-item header">
                   <div>#</div>
-                  <div>Variance (%)</div>
+                  <div>方差 (%)</div>
               </paper-item>
               <template is="dom-repeat" items="[[pcaComponents]]">
-                <paper-item class="dropdown-item" value="[[item.id]]" label="Component #[[item.componentNumber]]">
+                <paper-item class="dropdown-item" value="[[item.id]]" label="成分 #[[item.componentNumber]]">
                   <div>[[item.componentNumber]]</div>
                   <div class="item-details">[[item.percVariance]]</div>
                 </paper-item>
@@ -12877,10 +12868,10 @@ zc=this&&this.__extends||function(){var a=Object.setPrototypeOf||{__proto__:[]}i
             <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{pcaZ}}" slot="dropdown-content">
               <paper-item disabled class="dropdown-item header">
                   <div>#</div>
-                  <div>Variance (%)</div>
+                  <div>方差 (%)</div>
               </paper-item>
               <template is="dom-repeat" items="[[pcaComponents]]">
-                <paper-item class="dropdown-item" value="[[item.id]]" label="Component #[[item.componentNumber]]">
+                <paper-item class="dropdown-item" value="[[item.id]]" label="成分 #[[item.componentNumber]]">
                   <div>[[item.componentNumber]]</div>
                   <div class="item-details">[[item.percVariance]]</div>
                 </paper-item>
@@ -12893,10 +12884,10 @@ zc=this&&this.__extends||function(){var a=Object.setPrototypeOf||{__proto__:[]}i
             <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{pcaY}}" slot="dropdown-content">
               <paper-item disabled class="dropdown-item header">
                   <div>#</div>
-                  <div>Variance (%)</div>
+                  <div>方差 (%)</div>
               </paper-item>
               <template is="dom-repeat" items="[[pcaComponents]]">
-                <paper-item class="dropdown-item" value="[[item.id]]" label="Component #[[item.componentNumber]]">
+                <paper-item class="dropdown-item" value="[[item.id]]" label="成分 #[[item.componentNumber]]">
                   <div>[[item.componentNumber]]</div>
                   <div class="item-details">[[item.percVariance]]</div>
                 </paper-item>
@@ -12907,12 +12898,12 @@ zc=this&&this.__extends||function(){var a=Object.setPrototypeOf||{__proto__:[]}i
         </div>
       </div>
       <p id="pca-sampling" class="notice">
-        PCA is approximate.
+        该PCA结果为近似值.
         <paper-icon-button icon="help" class="help-icon"></paper-icon-button>
       
-      <div id="total-variance">Total variance</div>
+      <div id="total-variance">总方差</div>
       <paper-tooltip for="pca-sampling" position="top" animation-delay="0" fit-to-visible-bounds>
-        For fast results, the data was sampled to [[getPcaSampleSizeText()]] points and randomly projected down to [[getPcaSampledDimText()]] dimensions.
+        为了更快地出结果，数据被采样为[[getPcaSampleSizeText()]]个数据点，并且被随机地降映射为[[getPcaSampledDimText()]]维度。
       </paper-tooltip>
     </div>
     
@@ -12945,7 +12936,7 @@ pcaZ:{type:Number,value:2,observer:"showPCAIfEnabled"},customSelectedSearchByMet
 function(){this.zDropdown=this.querySelector("#z-dropdown");this.runTsneButton=this.querySelector(".run-tsne");this.pauseTsneButton=this.querySelector(".pause-tsne");this.perturbTsneButton=this.querySelector(".perturb-tsne");this.perplexitySlider=this.querySelector("#perplexity-slider");this.learningRateInput=this.querySelector("#learning-rate-slider");this.superviseFactorInput=this.querySelector("#supervise-factor-slider");this.iterationLabelTsne=this.querySelector(".run-tsne-iter");this.runUmapButton=
 this.querySelector("#run-umap")};d.prototype.disablePolymerChangesTriggerReprojection=function(){this.polymerChangesTriggerReprojection=!1};d.prototype.enablePolymerChangesTriggerReprojection=function(){this.polymerChangesTriggerReprojection=!0};d.prototype.updateTSNEPerplexityFromSliderChange=function(){this.perplexitySlider&&(this.perplexity=+this.perplexitySlider.value);this.querySelector(".tsne-perplexity span").innerText=""+this.perplexity};d.prototype.updateTSNELearningRateFromUIChange=function(){this.learningRateInput&&
 (this.learningRate=Math.pow(10,+this.learningRateInput.value));this.querySelector(".tsne-learning-rate span").innerText=""+this.learningRate};d.prototype.updateTSNESuperviseFactorFromUIChange=function(){this.querySelector(".tsne-supervise-factor span").innerText=""+this.superviseFactor;this.dataSet&&this.dataSet.setSuperviseFactor(this.superviseFactor)};d.prototype.setupUIControls=function(){for(var e=this,g=this,h=this.querySelectorAll(".ink-tab"),k=0;k<h.length;k++)h[k].addEventListener("click",
-function(){var l=this.getAttribute("data-tab");g.showTab(l)});this.runTsneButton.addEventListener("click",function(){e.dataSet.hasTSNERun?e.dataSet.stopTSNE():e.runTSNE()});this.pauseTsneButton.addEventListener("click",function(){e.dataSet.tSNEShouldPause?(e.dataSet.tSNEShouldPause=!1,e.pauseTsneButton.innerText="Pause"):(e.dataSet.tSNEShouldPause=!0,e.pauseTsneButton.innerText="Resume")});this.perturbTsneButton.addEventListener("mousedown",function(){e.dataSet&&e.projector&&(e.dataSet.perturbTsne(),
+function(){var l=this.getAttribute("data-tab");g.showTab(l)});this.runTsneButton.addEventListener("click",function(){e.dataSet.hasTSNERun?e.dataSet.stopTSNE():e.runTSNE()});this.pauseTsneButton.addEventListener("click",function(){e.dataSet.tSNEShouldPause?(e.dataSet.tSNEShouldPause=!1,e.pauseTsneButton.innerText="Pause"):(e.dataSet.tSNEShouldPause=!0,e.pauseTsneButton.innerText="继续")});this.perturbTsneButton.addEventListener("mousedown",function(){e.dataSet&&e.projector&&(e.dataSet.perturbTsne(),
 e.projector.notifyProjectionPositionsUpdated(),e.perturbInterval=setInterval(function(){e.dataSet.perturbTsne();e.projector.notifyProjectionPositionsUpdated()},100))});this.perturbTsneButton.addEventListener("mouseup",function(){clearInterval(e.perturbInterval)});this.perplexitySlider.value=this.perplexity.toString();this.perplexitySlider.addEventListener("change",function(){return e.updateTSNEPerplexityFromSliderChange()});this.updateTSNEPerplexityFromSliderChange();this.learningRateInput.addEventListener("change",
 function(){return e.updateTSNELearningRateFromUIChange()});this.updateTSNELearningRateFromUIChange();this.superviseFactorInput.addEventListener("change",function(){return e.updateTSNESuperviseFactorFromUIChange()});this.updateTSNESuperviseFactorFromUIChange();this.setupCustomProjectionInputFields();h=this.querySelectorAll("paper-dropdown-menu paper-input input");for(k=0;k<h.length;k++)h[k].style.fontSize="14px"};d.prototype.restoreUIFromBookmark=function(e){this.disablePolymerChangesTriggerReprojection();
 this.pcaX=e.pcaComponentDimensions[0];this.pcaY=e.pcaComponentDimensions[1];3===e.pcaComponentDimensions.length&&(this.pcaZ=e.pcaComponentDimensions[2]);this.pcaIs3d=3===e.pcaComponentDimensions.length;this.perplexitySlider&&(this.perplexitySlider.value=e.tSNEPerplexity.toString());this.learningRateInput&&(this.learningRateInput.value=e.tSNELearningRate.toString());this.tSNEis3d=e.tSNEis3d;this.umapIs3d=e.umapIs3d;this.umapNeighbors=e.umapNeighbors;this.customSelectedSearchByMetadataOption=e.customSelectedSearchByMetadataOption;
@@ -12957,10 +12948,10 @@ this.zDropdown.setAttribute("disabled","true"))};d.prototype.dataSetUpdated=func
 e?null:"none";this.showTab("pca")};d.prototype._pcaDimensionToggleObserver=function(){this.setZDropdownEnabled(this.pcaIs3d);this.beginProjection(this.currentProjection)};d.prototype._tsneDimensionToggleObserver=function(){this.beginProjection(this.currentProjection)};d.prototype._umapDimensionToggleObserver=function(){this.beginProjection(this.currentProjection)};d.prototype.metadataChanged=function(e){var g=-1;this.searchByMetadataOptions=e.stats.map(function(h,k){h.isNumeric||-1!==g||(g=k);return h.name});
 this.customSelectedSearchByMetadataOption=this.searchByMetadataOptions[Math.max(0,g)]};d.prototype.showTab=function(e){var g=this;this.currentProjection=e;for(var h=this.querySelector('.ink-tab[data-tab\x3d"'+e+'"]'),k=this.querySelectorAll(".ink-tab"),l=0;l<k.length;l++)a.util.classed(k[l],"active",!1);a.util.classed(h,"active",!0);h=this.querySelectorAll(".ink-panel-content");for(l=0;l<h.length;l++)a.util.classed(h[l],"active",!1);a.util.classed(this.querySelector('.ink-panel-content[data-panel\x3d"'+
 e+'"]'),"active",!0);if(null!=this.$){var m=this.$.main;requestAnimationFrame(function(){g.style.height=m.clientHeight+"px"})}this.beginProjection(e)};d.prototype.beginProjection=function(e){!1!==this.polymerChangesTriggerReprojection&&("pca"===e?(null!=this.dataSet&&this.dataSet.stopTSNE(),this.showPCA()):"tsne"===e?this.showTSNE():"umap"===e?this.showUmap():"custom"===e&&(null!=this.dataSet&&this.dataSet.stopTSNE(),this.computeAllCentroids(),this.reprojectCustom()))};d.prototype.showTSNE=function(){var e=
-this.dataSet;if(null!=e){var g=a.getProjectionComponents("tsne",[0,1,this.tSNEis3d?2:null]);e=new a.Projection("tsne",g,this.tSNEis3d?3:2,e);this.projector.setProjection(e);this.dataSet.hasTSNERun?this.projector.notifyProjectionPositionsUpdated():this.runTSNE()}};d.prototype.runTSNE=function(){var e=this,g=!1;this.runTsneButton.innerText="Stop";this.runTsneButton.disabled=!0;this.pauseTsneButton.innerText="Pause";this.pauseTsneButton.disabled=!0;this.perturbTsneButton.disabled=!1;this.dataSet.projectTSNE(this.perplexity,
-this.learningRate,this.tSNEis3d?3:2,function(h){null!=h?(e.runTsneButton.disabled=!1,e.pauseTsneButton.disabled=!1,e.iterationLabelTsne.innerText=""+h,e.projector.notifyProjectionPositionsUpdated(),!g&&e.dataSet.projections.tsne&&(e.projector.onProjectionChanged(),g=!0)):(e.runTsneButton.innerText="Re-run",e.runTsneButton.disabled=!1,e.pauseTsneButton.innerText="Pause",e.pauseTsneButton.disabled=!0,e.perturbTsneButton.disabled=!0,e.projector.onProjectionChanged())})};d.prototype.showUmap=function(){var e=
+this.dataSet;if(null!=e){var g=a.getProjectionComponents("tsne",[0,1,this.tSNEis3d?2:null]);e=new a.Projection("tsne",g,this.tSNEis3d?3:2,e);this.projector.setProjection(e);this.dataSet.hasTSNERun?this.projector.notifyProjectionPositionsUpdated():this.runTSNE()}};d.prototype.runTSNE=function(){var e=this,g=!1;this.runTsneButton.innerText="停止";this.runTsneButton.disabled=!0;this.pauseTsneButton.innerText="暂停";this.pauseTsneButton.disabled=!0;this.perturbTsneButton.disabled=!1;this.dataSet.projectTSNE(this.perplexity,
+this.learningRate,this.tSNEis3d?3:2,function(h){null!=h?(e.runTsneButton.disabled=!1,e.pauseTsneButton.disabled=!1,e.iterationLabelTsne.innerText=""+h,e.projector.notifyProjectionPositionsUpdated(),!g&&e.dataSet.projections.tsne&&(e.projector.onProjectionChanged(),g=!0)):(e.runTsneButton.innerText="重新运行",e.runTsneButton.disabled=!1,e.pauseTsneButton.innerText="暂停",e.pauseTsneButton.disabled=!0,e.perturbTsneButton.disabled=!0,e.projector.onProjectionChanged())})};d.prototype.showUmap=function(){var e=
 this.dataSet;if(null!=e){var g=a.getProjectionComponents("umap",[0,1,this.umapIs3d?2:null]);e=new a.Projection("umap",g,this.umapIs3d?3:2,e);this.projector.setProjection(e);this.dataSet.hasUmapRun?this.projector.notifyProjectionPositionsUpdated():this.runUmap()}};d.prototype.runUmap=function(){var e=this,g=!1;this.runUmapButton.disabled=!0;this.dataSet.projectUmap(this.umapIs3d?3:2,this.umapNeighbors,function(h){null!=h?(e.runUmapButton.disabled=!1,e.projector.notifyProjectionPositionsUpdated(),!g&&
-e.dataSet.projections.umap&&(e.projector.onProjectionChanged(),g=!0)):(e.runUmapButton.innerText="Re-run",e.runUmapButton.disabled=!1,e.projector.onProjectionChanged())})};d.prototype.showPCAIfEnabled=function(){this.polymerChangesTriggerReprojection&&this.showPCA()};d.prototype.updateTotalVarianceMessage=function(){var e=this.dataSet.fracVariancesExplained,g=e[this.pcaX]+e[this.pcaY];this.pcaIs3d&&(g+=e[this.pcaZ]);e="Total variance described: "+((100*g).toFixed(1)+"%.");this.querySelector("#total-variance").innerHTML=
+e.dataSet.projections.umap&&(e.projector.onProjectionChanged(),g=!0)):(e.runUmapButton.innerText="重新运行",e.runUmapButton.disabled=!1,e.projector.onProjectionChanged())})};d.prototype.showPCAIfEnabled=function(){this.polymerChangesTriggerReprojection&&this.showPCA()};d.prototype.updateTotalVarianceMessage=function(){var e=this.dataSet.fracVariancesExplained,g=e[this.pcaX]+e[this.pcaY];this.pcaIs3d&&(g+=e[this.pcaZ]);e="描述的总方差:"+((100*g).toFixed(1)+"%.");this.querySelector("#total-variance").innerHTML=
 e};d.prototype.showPCA=function(){var e=this;null!=this.dataSet&&this.dataSet.projectPCA().then(function(){var g=a.getProjectionComponents("pca",[e.pcaX,e.pcaY,e.pcaZ]);g=new a.Projection("pca",g,e.pcaIs3d?3:2,e.dataSet);e.projector.setProjection(g);g=Math.min(10,e.dataSet.dim[1]);e.updateTotalVarianceMessage();e.pcaComponents=a.util.range(g).map(function(h){return{id:h,componentNumber:h+1,percVariance:(100*e.dataSet.fracVariancesExplained[h]).toFixed(1)}})})};d.prototype.reprojectCustom=function(){if(null!=
 this.centroids&&null!=this.centroids.xLeft&&null!=this.centroids.xRight&&null!=this.centroids.yUp&&null!=this.centroids.yDown){var e=a.vector.sub(this.centroids.xRight,this.centroids.xLeft);this.dataSet.projectLinear(e,"linear-x");e=a.vector.sub(this.centroids.yUp,this.centroids.yDown);this.dataSet.projectLinear(e,"linear-y");e=a.getProjectionComponents("custom",["x","y"]);e=new a.Projection("custom",e,2,this.dataSet);this.projector.setProjection(e)}};d.prototype.clearCentroids=function(){this.centroids=
 {xLeft:null,xRight:null,yUp:null,yDown:null};this.allCentroid=null};d.prototype._customSelectedSearchByMetadataOptionChanged=function(){!1!==this.polymerChangesTriggerReprojection&&"custom"===this.currentProjection&&(this.computeAllCentroids(),this.reprojectCustom())};d.prototype.setupCustomProjectionInputFields=function(){this.customProjectionXLeftInput=this.setupCustomProjectionInputField("xLeft");this.customProjectionXRightInput=this.setupCustomProjectionInputField("xRight");this.customProjectionYUpInput=
@@ -13347,16 +13338,16 @@ vz-projector {
   <div id="appbar">
     <div>高维数据可视化工具</div>
     <div class="icons">
-      <a title="Documentation" target="_blank" href="[[documentationLink]]">
+      <a target="_blank" href="[[documentationLink]]">
         <paper-icon-button icon="help-outline"></paper-icon-button>
         <paper-tooltip position="bottom" animation-delay="0" fit-to-visible-bounds>
-          Open documentation
+          打开文档
         </paper-tooltip>
       </a>
-      <a title="Report bug" target="_blank" href="[[bugReportLink]]">
+      <a target="_blank" href="[[bugReportLink]]">
         <paper-icon-button icon="bug-report"></paper-icon-button>
         <paper-tooltip position="bottom" animation-delay="0" fit-to-visible-bounds>
-          Report a bug
+          反馈bug
         </paper-tooltip>
       </a>
     </div>
